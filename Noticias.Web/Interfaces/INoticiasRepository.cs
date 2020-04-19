@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Noticias.Web.Models;
 
 namespace Noticias.Web.Interfaces
 {
-    public interface INoticiasService
+    public interface INoticiasRepository
     {
-        Task<IEnumerable<NoticiasIndexViewModel>> GetHome();    
+        Task<IEnumerable<NoticiaModel>> GetHome();
     }
 }

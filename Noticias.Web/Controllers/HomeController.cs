@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Noticias.Web.Interfaces;
 using Noticias.Web.Models;
 
 namespace Noticias.Web.Controllers
@@ -12,15 +13,18 @@ namespace Noticias.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INoticiasService _noticiasService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INoticiasService noticiasService)
         {
             _logger = logger;
+            _noticiasService = noticiasService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await _noticiasService.GetHome();
+            return View(new HomeViewModel{ Noticias = model});
         }
 
         public IActionResult Privacy()
