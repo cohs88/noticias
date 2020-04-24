@@ -26,8 +26,10 @@ namespace Noticias.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<INoticiasService, NoticiasService>();
-            services.AddTransient<INoticiasRepository, FakeNoticiasRepository>();
+            services.AddScoped<INoticiasService, NoticiasService>();
+            services.AddScoped<IAutoresService, AutoresService>();
+            services.AddScoped<IAutoresRepository, FakeAutoresRepo>();
+            services.AddScoped<INoticiasRepository, FakeNoticiasRepository>();
 
             services.AddControllersWithViews();
         }
