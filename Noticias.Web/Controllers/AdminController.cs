@@ -17,7 +17,7 @@ namespace Noticias.Web.Controllers
         {
             var model = await _autoresService.GetAutores();
 
-            return View();
+            return View(model);
         }
     }
 }
