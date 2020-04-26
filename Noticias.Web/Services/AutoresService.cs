@@ -14,6 +14,11 @@ namespace Noticias.Web.Services
             _autoresRepository = autoresRepository;
         }
 
+        public async Task CreateAutor(EditAutorViewModel autor)
+        {
+            await _autoresRepository.CreateAutor(autor);
+        }
+
         public async Task DeleteAutor(int autorId)
         {
             await _autoresRepository.DeleteAutor(autorId);

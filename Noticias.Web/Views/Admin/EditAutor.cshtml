@@ -1,9 +1,10 @@
 @model EditAutorViewModel;
 @{
     ViewData["Title"] = "Autor";
+    var actionForm = Model.AutorId > 0 ? "EditAutor" : "CreateAutor";
 }
 
-<form asp-controller="Admin" asp-action="EditAutor" method="post">
+<form asp-controller="Admin" asp-action="@actionForm" method="post">
   <input type="hidden" name="AutorId" value="@Model.AutorId" />
   <div class="form-group">
     <label for="Nombre">Nombre</label>
@@ -16,4 +17,8 @@
     <span asp-validation-for="@Model.Apellidos" class="text-danger" ></span>
   </div>
   <button class="btn btn-primary" type="submit">Guardar</button>
+  <a
+    asp-controller="Admin" 
+    asp-action="Autores"
+    >Regresar</a>
 </form>

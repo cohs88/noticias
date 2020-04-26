@@ -9,6 +9,8 @@ namespace Noticias.Web.Controllers
 {
     public class AdminController : Controller
     {
+        const string AUTORES = "Autores",
+            EDIT_AUTOR = "EditAutor";
         private readonly IAutoresService _autoresService;
         public AdminController(IAutoresService autoresService)
         {
@@ -20,6 +22,25 @@ namespace Noticias.Web.Controllers
             var model = await _autoresService.GetAutores();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAutor()
+        {
+            return View(EDIT_AUTOR, new EditAutorViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAutor(EditAutorViewModel autor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(EDIT_AUTOR, autor);
+            }
+
+            await _autoresService.CreateAutor(autor);
+
+            return RedirectToAction(AUTORES);
         }
 
         [HttpGet]
@@ -45,14 +66,14 @@ namespace Noticias.Web.Controllers
 
             await _autoresService.UpdateAutor(autor);
 
-            return RedirectToAction("Autores");
+            return RedirectToAction(AUTORES);
         }
 
         [HttpGet]
         public async Task<IActionResult> DeleteAutor(int id)
         {
-            
-            return RedirectToAction("Autores");
+
+            return RedirectToAction(AUTORES);
         }
     }
 }
