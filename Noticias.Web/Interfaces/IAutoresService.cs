@@ -9,5 +9,6 @@ namespace Noticias.Web.Interfaces
         Task<IEnumerable<AutorModel>> GetAutores();
         Task<AutorModel> GetAutor(int autorId);
         Task UpdateAutor(EditAutorViewModel autorViewModel);
+        Task DeleteAutor(int autorId);
     }
 }

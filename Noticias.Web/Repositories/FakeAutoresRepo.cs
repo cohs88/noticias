@@ -17,6 +17,12 @@ namespace Noticias.Web.Repositories
             Autores.Add(new AutorModel{ AutorId = 3, Nombre = "manuel", Apellidos = "marquez"});
             Autores.Add(new AutorModel{ AutorId = 4, Nombre = "jose luis", Apellidos = "ramos"});
         }
+
+        public async Task DeleteAutor(int autorId)
+        {
+            
+        }
+
         public Task<AutorModel> GetAutor(int autorId)
         {
             return Task.Run(() => Autores.FirstOrDefault(a => a.AutorId == autorId));
