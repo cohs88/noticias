@@ -6,6 +6,8 @@ namespace Noticias.Web.Interfaces
 {
     public interface IAutoresRepository
     {
-         Task<IEnumerable<AutorModel>> GetAutores();
+        Task<IEnumerable<AutorModel>> GetAutores();
+        Task<AutorModel> GetAutor(int autorId);
+        Task UpdateAutor(EditAutorViewModel autorViewModel);
     }
 }
