@@ -9,5 +9,6 @@ namespace Noticias.Web.Interfaces
     {
         Task<IEnumerable<NoticiasIndexViewModel>> GetHome();
         Task<IEnumerable<NoticiaIndexAdminViewModel>> GetNoticiasAdmin();
+        Task CreateNoticia(EditNoticiaViewModel model);
     }
 }

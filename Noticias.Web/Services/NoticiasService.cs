@@ -14,13 +14,19 @@ namespace Noticias.Web.Services
             _noticiasRepository = noticiasRepository;
         }
 
+        public async Task CreateNoticia(EditNoticiaViewModel model)
+        {
+            await _noticiasRepository.CreateNoticia(model);
+        }
+
         public async Task<IEnumerable<NoticiasIndexViewModel>> GetHome()
         {
             var models = await _noticiasRepository.GetHome();
             return models.Select(m => new NoticiasIndexViewModel{
                 NoticiaId = m.NoticiaId,
                 Titulo = m.Titulo,
-                Descripcion = m.Descripcion
+                Descripcion = m.Descripcion,
+                FechaCreacion = m.FechaCreacion
             });
         }
 
@@ -33,7 +39,7 @@ namespace Noticias.Web.Services
                 NoticiaId = n.NoticiaId,
                 Titulo = n.Titulo,
                 Descripcion = n.Descripcion,
-                FechaCreacion = n.CreatedAt,
+                FechaCreacion = n.FechaCreacion,
                 Autor = n.Autor?.NombreCompleto
             });
         }

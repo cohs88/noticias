@@ -7,5 +7,6 @@ namespace Noticias.Web.Interfaces
     public interface INoticiasRepository
     {
         Task<IEnumerable<NoticiaModel>> GetHome();
+        Task CreateNoticia(EditNoticiaViewModel model);
     }
 }

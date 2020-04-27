@@ -4,11 +4,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Noticias.Web.Interfaces;
 using Noticias.Web.Models;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace Noticias.Web.Controllers {
     public class AdminController : Controller {
-        const string AUTORES = "Autores",
-            EDIT_AUTOR = "EditAutor";
+        const string INDEX_AUTORES = "Autores",
+            EDIT_AUTOR = "EditAutor",
+            EDIT_NOTICIA = "EditNoticia",
+            INDEX_NOTICIAS = "Noticias";
         private readonly IAutoresService _autoresService;
         private readonly INoticiasService _noticiasService;
         public AdminController (IAutoresService autoresService, INoticiasService noticiasService) 
@@ -22,6 +27,35 @@ namespace Noticias.Web.Controllers {
             var model = await _noticiasService.GetNoticiasAdmin();
 
             return View (model);
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GetAutoresForSelect()
+        {
+            var autores = await _autoresService.GetAutores();
+
+            return autores.Select(a =>new SelectListItem() { Text = a.NombreCompleto, Value = a.AutorId.ToString() } );
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateNoticia ()
+        {
+            ViewData[INDEX_AUTORES] = await this.GetAutoresForSelect();
+
+            return View(EDIT_NOTICIA, new EditNoticiaViewModel{ FechaCreacion = DateTime.Now });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNoticia (EditNoticiaViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData[INDEX_AUTORES] = await this.GetAutoresForSelect();
+                return View(EDIT_NOTICIA, model);
+            }
+
+            await _noticiasService.CreateNoticia(model);
+
+            return RedirectToAction (INDEX_NOTICIAS);
         }
 
         public async Task<IActionResult> Autores () {
@@ -44,7 +78,7 @@ namespace Noticias.Web.Controllers {
 
             await _autoresService.CreateAutor (autor);
 
-            return RedirectToAction (AUTORES);
+            return RedirectToAction (INDEX_AUTORES);
         }
 
         [HttpGet]
@@ -67,14 +101,14 @@ namespace Noticias.Web.Controllers {
 
             await _autoresService.UpdateAutor (autor);
 
-            return RedirectToAction (AUTORES);
+            return RedirectToAction (INDEX_AUTORES);
         }
 
         [HttpGet]
         public async Task<IActionResult> DeleteAutor (int id) 
         {
             await _autoresService.DeleteAutor(id);
-            return RedirectToAction (AUTORES);
+            return RedirectToAction (INDEX_AUTORES);
         }
     }
 }
