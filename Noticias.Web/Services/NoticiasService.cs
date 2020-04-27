@@ -31,8 +31,14 @@ namespace Noticias.Web.Services
                 NoticiaId = m.NoticiaId,
                 Titulo = m.Titulo,
                 Descripcion = m.Descripcion,
-                FechaCreacion = m.FechaCreacion
+                FechaCreacion = m.FechaCreacion,
+                Autor = m.Autor?.NombreCompleto
             });
+        }
+
+        public async Task<NoticiaModel> GetNoticia(int id)
+        {
+            return await _noticiasRepository.GetNoticia(id);
         }
 
         public async Task<EditNoticiaViewModel> GetNoticiaForEdit(int id)

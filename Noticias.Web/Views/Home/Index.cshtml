@@ -5,11 +5,15 @@
   <div class="col-md-12">
     @foreach (var noticia in Model.Noticias)
     {
-      <h1>@noticia.Titulo</h1>
+      <h1>
+        <a asp-controller="Home" 
+                   asp-action="Noticia"
+                   asp-route-id="@noticia.NoticiaId">
+        @noticia.Titulo</a></h1>
       <p>@noticia.Descripcion</p>
 
       <div>
-        <span class="badge">@noticia.FechaCreacion.ToShortDateString()</span>
+        <span class="badge">@noticia.FechaCreacion.ToShortDateString() - @noticia.Autor</span>
       </div>
       <hr>
     }

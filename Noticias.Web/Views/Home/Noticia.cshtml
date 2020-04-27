@@ -1,0 +1,15 @@
+@model NoticiaModel;
+@{
+    ViewData["Title"] = Model.Titulo;
+}
+  <div class="col-md-12">
+      <h1>@Model.Titulo</h1>
+      <p>@Model.Descripcion</p>
+      <div>
+        <span class="badge">@Model.FechaCreacion.ToShortDateString() - @Model.Autor?.NombreCompleto</span>
+      </div>
+      <hr>
+      <div>
+          @Model.Contenido
+      </div>
+  </div>

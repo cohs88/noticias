@@ -27,6 +27,12 @@ namespace Noticias.Web.Controllers
             return View(new HomeViewModel{ Noticias = model});
         }
 
+        public async Task<IActionResult> Noticia(int id)
+        {
+            var model = await _noticiasService.GetNoticia(id);
+            return View(model);
+        }
+
         public IActionResult Privacy()
         {
             return View();

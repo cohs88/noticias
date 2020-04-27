@@ -21,18 +21,21 @@ namespace Noticias.Web.Repositories
                 NoticiaId = 1, 
                 Titulo ="Descontrol en Tijuana a causa del coronavirus", 
                 Descripcion = "En los hospitales de la Secretaría de Salud en Tecate y Playas de Rosarito se presenta una ocupación del 54.16% y se tienen nueve ventiladores de los cuales solamente se usan dos", 
+                Contenido = "esto es el contenido",
                 FechaCreacion = DateTime.Now, 
                 Autor = autor1 });
             Noticias.Add(new NoticiaModel{
                 NoticiaId = 2, 
                 Titulo ="La red sanitaria de Ciudad de México se enfrenta al riesgo de colapso", 
                 Descripcion = "'Hay una sobredemanda de pacientes con síntomas', advierte la secretaria de Salud de la capital, en la frontera de los 3.000 contagios y los 250 fallecimientos",
+                Contenido = "esto es el contenido",
                 FechaCreacion = DateTime.Now.AddDays(-2),
                 Autor = autor2
                 });
             Noticias.Add(new NoticiaModel{NoticiaId = 3, 
                  Titulo ="Los agujeros del coronavirus en Venezuela", 
                  Descripcion = "Mientras Maduro exhibe como un éxito la gestión de la crisis, asociaciones médicas y la oposición denuncian la falta de transparencia ",
+                 Contenido = "esto es el contenido",
                  FechaCreacion = DateTime.Now,
                  Autor = autor1 });
         }
