@@ -37,6 +37,31 @@ namespace Noticias.Web.Controllers {
         }
 
         [HttpGet]
+        public async Task<IActionResult> EditNoticia (int id)
+        {
+            ViewData[INDEX_AUTORES] = await this.GetAutoresForSelect();
+
+            var model = await _noticiasService.GetNoticiaForEdit(id);
+
+            return View(EDIT_NOTICIA, model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditNoticia (EditNoticiaViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData[INDEX_AUTORES] = await this.GetAutoresForSelect();
+
+                return View(EDIT_NOTICIA, model);
+            }
+
+            await _noticiasService.UpdateNoticia(model);
+
+            return RedirectToAction (INDEX_NOTICIAS);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> CreateNoticia ()
         {
             ViewData[INDEX_AUTORES] = await this.GetAutoresForSelect();
@@ -82,7 +107,8 @@ namespace Noticias.Web.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAutor (int id) {
+        public async Task<IActionResult> EditAutor (int id) 
+        {
             Debug.WriteLine (id);
             var autorModel = await _autoresService.GetAutor (id);
 

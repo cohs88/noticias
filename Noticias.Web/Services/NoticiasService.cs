@@ -30,6 +30,21 @@ namespace Noticias.Web.Services
             });
         }
 
+        public async Task<EditNoticiaViewModel> GetNoticiaForEdit(int id)
+        {
+            NoticiaModel noticiaModel = await _noticiasRepository.GetNoticia(id);
+
+            return new EditNoticiaViewModel
+            {
+                AutorId = noticiaModel.Autor.AutorId,
+                NoticiaId = noticiaModel.NoticiaId,
+                Titulo = noticiaModel.Titulo,
+                Descripcion = noticiaModel.Descripcion,
+                Contenido = noticiaModel.Contenido,
+                FechaCreacion = noticiaModel.FechaCreacion
+            };
+        }
+
         public async Task<IEnumerable<NoticiaIndexAdminViewModel>> GetNoticiasAdmin()
         {
             var models = await _noticiasRepository.GetHome();
@@ -42,6 +57,11 @@ namespace Noticias.Web.Services
                 FechaCreacion = n.FechaCreacion,
                 Autor = n.Autor?.NombreCompleto
             });
+        }
+
+        public async Task UpdateNoticia(EditNoticiaViewModel model)
+        {
+            await _noticiasRepository.UpdateNoticia(model);
         }
     }
 }
