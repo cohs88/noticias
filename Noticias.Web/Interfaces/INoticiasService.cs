@@ -12,5 +12,6 @@ namespace Noticias.Web.Interfaces
         Task CreateNoticia(EditNoticiaViewModel model);
         Task<EditNoticiaViewModel> GetNoticiaForEdit(int id);
         Task UpdateNoticia(EditNoticiaViewModel model);
+        Task DeleteNoticia(int id);
     }
 }

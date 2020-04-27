@@ -19,6 +19,11 @@ namespace Noticias.Web.Services
             await _noticiasRepository.CreateNoticia(model);
         }
 
+        public async Task DeleteNoticia(int id)
+        {
+            await _noticiasRepository.DeleteNoticia(id);
+        }
+
         public async Task<IEnumerable<NoticiasIndexViewModel>> GetHome()
         {
             var models = await _noticiasRepository.GetHome();

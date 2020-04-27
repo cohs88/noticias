@@ -41,6 +41,11 @@ namespace Noticias.Web.Repositories
             
         }
 
+        public async Task DeleteNoticia(int id)
+        {
+            
+        }
+
         public async Task<IEnumerable<NoticiaModel>> GetHome()
         {
             return await Task.Run(() => Noticias);

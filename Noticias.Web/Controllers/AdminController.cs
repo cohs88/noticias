@@ -37,6 +37,13 @@ namespace Noticias.Web.Controllers {
         }
 
         [HttpGet]
+        public async Task<IActionResult> DeleteNoticia (int id) 
+        {
+            await _noticiasService.DeleteNoticia(id);
+            return RedirectToAction (INDEX_NOTICIAS);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> EditNoticia (int id)
         {
             ViewData[INDEX_AUTORES] = await this.GetAutoresForSelect();
