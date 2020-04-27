@@ -7,6 +7,7 @@ namespace Noticias.Web.Interfaces
 {
     public interface INoticiasService
     {
-        Task<IEnumerable<NoticiasIndexViewModel>> GetHome();    
+        Task<IEnumerable<NoticiasIndexViewModel>> GetHome();
+        Task<IEnumerable<NoticiaIndexAdminViewModel>> GetNoticiasAdmin();
     }
 }

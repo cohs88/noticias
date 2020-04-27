@@ -5,75 +5,76 @@ using Microsoft.AspNetCore.Mvc;
 using Noticias.Web.Interfaces;
 using Noticias.Web.Models;
 
-namespace Noticias.Web.Controllers
-{
-    public class AdminController : Controller
-    {
+namespace Noticias.Web.Controllers {
+    public class AdminController : Controller {
         const string AUTORES = "Autores",
             EDIT_AUTOR = "EditAutor";
         private readonly IAutoresService _autoresService;
-        public AdminController(IAutoresService autoresService)
+        private readonly INoticiasService _noticiasService;
+        public AdminController (IAutoresService autoresService, INoticiasService noticiasService) 
         {
+            _noticiasService = noticiasService;
             _autoresService = autoresService;
         }
 
-        public async Task<IActionResult> Autores()
+        public async Task<IActionResult> Noticias () 
         {
-            var model = await _autoresService.GetAutores();
+            var model = await _noticiasService.GetNoticiasAdmin();
 
-            return View(model);
+            return View (model);
+        }
+
+        public async Task<IActionResult> Autores () {
+            var model = await _autoresService.GetAutores ();
+
+            return View (model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateAutor()
+        public IActionResult CreateAutor () 
         {
-            return View(EDIT_AUTOR, new EditAutorViewModel());
+            return View(EDIT_AUTOR, new EditAutorViewModel ());
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAutor(EditAutorViewModel autor)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(EDIT_AUTOR, autor);
+        public async Task<IActionResult> CreateAutor (EditAutorViewModel autor) {
+            if (!ModelState.IsValid) {
+                return View (EDIT_AUTOR, autor);
             }
 
-            await _autoresService.CreateAutor(autor);
+            await _autoresService.CreateAutor (autor);
 
-            return RedirectToAction(AUTORES);
+            return RedirectToAction (AUTORES);
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAutor(int id)
-        {
-            Debug.WriteLine(id);
-            var autorModel = await _autoresService.GetAutor(id);
+        public async Task<IActionResult> EditAutor (int id) {
+            Debug.WriteLine (id);
+            var autorModel = await _autoresService.GetAutor (id);
 
-            return View(new EditAutorViewModel(){
+            return View (new EditAutorViewModel () {
                 AutorId = autorModel.AutorId,
-                Nombre = autorModel.Nombre,
-                Apellidos = autorModel.Apellidos
+                    Nombre = autorModel.Nombre,
+                    Apellidos = autorModel.Apellidos
             });
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAutor(EditAutorViewModel autor)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(autor);
+        public async Task<IActionResult> EditAutor (EditAutorViewModel autor) {
+            if (!ModelState.IsValid) {
+                return View (autor);
             }
 
-            await _autoresService.UpdateAutor(autor);
+            await _autoresService.UpdateAutor (autor);
 
-            return RedirectToAction(AUTORES);
+            return RedirectToAction (AUTORES);
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteAutor(int id)
+        public async Task<IActionResult> DeleteAutor (int id) 
         {
-
-            return RedirectToAction(AUTORES);
+            await _autoresService.DeleteAutor(id);
+            return RedirectToAction (AUTORES);
         }
     }
 }

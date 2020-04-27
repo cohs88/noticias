@@ -23,5 +23,19 @@ namespace Noticias.Web.Services
                 Descripcion = m.Descripcion
             });
         }
+
+        public async Task<IEnumerable<NoticiaIndexAdminViewModel>> GetNoticiasAdmin()
+        {
+            var models = await _noticiasRepository.GetHome();
+
+            return models.Select(n => new NoticiaIndexAdminViewModel
+            {
+                NoticiaId = n.NoticiaId,
+                Titulo = n.Titulo,
+                Descripcion = n.Descripcion,
+                FechaCreacion = n.CreatedAt,
+                Autor = n.Autor?.NombreCompleto
+            });
+        }
     }
 }

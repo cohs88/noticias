@@ -2,16 +2,15 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+  <div class="col-md-12">
+    @foreach (var noticia in Model.Noticias)
+    {
+      <h1>@noticia.Titulo</h1>
+      <p>@noticia.Descripcion</p>
 
-<div class="list-group">
-  @foreach (var noticia in Model.Noticias)
-  {
-    <a href="#" class="list-group-item list-group-item-action active mb-2">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">@noticia.Titulo</h5>
-        <small>3 days ago</small>
+      <div>
+        <span class="badge">@noticia.FechaCreacion.ToShortDateString()</span>
       </div>
-      <p class="mb-1">@noticia.Descripcion</p>
-    </a>   
-  }
-</div>
+      <hr>
+    }
+  </div>
