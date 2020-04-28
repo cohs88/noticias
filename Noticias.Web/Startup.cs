@@ -28,7 +28,7 @@ namespace Noticias.Web
         {
             services.AddScoped<INoticiasService, NoticiasService>();
             services.AddScoped<IAutoresService, AutoresService>();
-            services.AddScoped<IAutoresRepository, FakeAutoresRepo>();
+            services.AddScoped<IAutoresRepository, AdoAutoresRepository>();
             services.AddScoped<INoticiasRepository, FakeNoticiasRepository>();
 
             services.AddControllersWithViews();
