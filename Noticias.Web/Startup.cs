@@ -29,7 +29,7 @@ namespace Noticias.Web
             services.AddScoped<INoticiasService, NoticiasService>();
             services.AddScoped<IAutoresService, AutoresService>();
             services.AddScoped<IAutoresRepository, AdoAutoresRepository>();
-            services.AddScoped<INoticiasRepository, FakeNoticiasRepository>();
+            services.AddScoped<INoticiasRepository, AdoNoticiasRepository>();
 
             services.AddControllersWithViews();
         }
